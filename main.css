@@ -1,0 +1,19 @@
+body {
+    font-family: Courier;
+    background: url("/images/rocket_clouds1.png");
+}
+
+
+#gameArea {
+    margin: 0 auto;
+    width: 1210px;
+    height: 550px;
+    padding: 0;
+}
+
+#game_canvas {
+    margin: 0 auto;    
+    margin-top: 100px;
+    display: block;
+    
+}
