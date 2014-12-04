@@ -58,7 +58,33 @@ var game = (function(){
 	        var rx = Math.floor(x / SIZE) * SIZE;
 	        var ry = Math.floor(y / SIZE) * SIZE;
 
-	}
+            // Find the tile we just clicked and flip it
+            tiles.map(function(t) {
+                if (t.x === rx && t.y === ry)
+                    t.flipped = true;
+                else
+                    t.flipped = false;
+            });
+
+
+            // Redraw game board
+            game.draw();
+	    },
+
+	    template_mapper: function(template){
+	        for (var i = 0; i < template.length; i++){
+		        for (var j = 0; j < template[i].length; j++){
+		            tiles.push(new Tile(i * SIZE, j * SIZE));
+		        }
+	        }
+	    },
+
+        // Draw all tiles
+	    draw: function(){
+	        for (var i = 0; i < tiles.length; i++){
+		        tiles[i].draw(context);
+	        }
+	    }
     }
 })();
 
