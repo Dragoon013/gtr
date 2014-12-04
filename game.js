@@ -20,6 +20,7 @@ var game = (function(){
 
     var gameArea = document.getElementById('gameArea');
     var canvas = document.getElementById('game_canvas');
+    var score = document.getElementById('score');
 
     WIDTH = game_canvas.width;
     HEIGHT = game_canvas.height;
