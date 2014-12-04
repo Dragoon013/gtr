@@ -4,15 +4,19 @@ var Tile = function (x, y){
     this.y = y;
     this.width = SIZE;
     this.flipped = false;
+    this.padding = 2;
 };
 
 Tile.prototype = {
     draw: function (context) {
+        // Setup
         context.save();
         context.globalAlpha = .6;
         context.fillStyle = 'black';
         if (this.flipped) context.fillStyle = 'blue';
-	    context.fillRect(this.x, this.y, this.width, this.width);
+
+        // Drawing
+	    context.fillRect(this.x+this.padding, this.y+this.padding, this.width-2*this.padding, this.width-2*this.padding);
         context.restore();
     }
 };
