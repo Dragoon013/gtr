@@ -1,7 +1,6 @@
 //game.js
 //show a screen with tiles - all blanked out or covered in black, and a score in top right
 
-
 var SIZE = 200;
 var WIDTH;
 var HEIGHT;
@@ -11,11 +10,10 @@ var BOARD_H;
 var tiles = [];
 
 var BOARD = [[1,2,3],
-	     [4,5,6],
-	     [7,8,9]];
+	         [4,5,6],
+	         [7,8,9]];
 
 var game = (function(){
-
     var tiles = [];
     var gameTiles = [];
     var picTiles = [];
@@ -27,9 +25,9 @@ var game = (function(){
     HEIGHT = game_canvas.height;
     BOARD_W = BOARD.length * SIZE;
     BOARD_H = BOARD.length * SIZE;
-    
+
     var context = canvas.getContext('2d');
-    
+
     return{
 	
 	init: function(){
@@ -95,4 +93,3 @@ var game = (function(){
 })();
 
 game.init();
-
