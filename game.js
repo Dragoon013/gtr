@@ -29,63 +29,30 @@ var game = (function(){
     var context = canvas.getContext('2d');
 
     return{
-	
-	init: function(){
-	    canvas.addEventListener('click',function(e){
-		game.click(e);
-	    });
-	    game.template_mapper(BOARD);
-	    game.draw();
-	    
-	},
+	    init: function(){
+	        canvas.addEventListener('click',function(e){
+		        game.click(e);
+	        });
+	        game.template_mapper(BOARD);
+	        game.draw();
 
-	click: function(e){
-	    
-	    if (e.x != undefined && e.y != undefined){
-                var x = e.x;
-                var y = e.y;
-            }
-            else{// Firefox                                                                                                                                           
-		
-                x = e.clientX + document.body.scrollLeft +
+	    },
+
+	    click: function(e){
+            var x = e.x;
+            var y = e.y;
+
+            // Firefox (im not sure this works)
+            if (!x || !y) {
+                var x = e.clientX + document.body.scrollLeft +
                     document.documentElement.scrollLeft;
-                y = e.clientY + document.body.scrollTop +
+                var y = e.clientY + document.body.scrollTop +
                     document.documentElement.scrollTop;
             }
-	    
-	    //makes the grid reasonable
-	    x -= canvas.offsetLeft;
+
+            // Align x,y with the canvas
+	        x -= canvas.offsetLeft;
             y -= canvas.offsetTop;
-	    
-	    var rx = Math.floor(x/SIZE) %BOARD.length;
-	    var ry = Math.floor(y/SIZE) %BOARD.length;
-	    
-	    for( var i = 0; i < tiles.length; i++){
-		
-		if(tiles[i].x === rx && tiles[i].y === ry){
-		    tiles[i].drawUp(context);
-		}
-	    }
-	    context.strokeStyle = 'black';	    
-	    context.strokeRect(0,0,BOARD_W, BOARD_H);
-	},
-
-	template_mapper: function(template){
-
-	    for (var i = 0; i < template.length; i++){
-		for (var j = 0; j < template[i].length; j++){
-		    tiles.push(new Tile(i*SIZE, j * SIZE)); 
-		}
-
-	    }	    
-	},
-	
-	draw: function(){
-	    
-	    for(var i = 0; i < tiles.length; i++){
-		tiles[i].drawDown(context);
-	    }
-	    
 
 
 	}
