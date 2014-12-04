@@ -7,7 +7,7 @@ var Tile = function (x, y){
 };
 
 Tile.prototype = {
-    draw: function () {
+    draw: function (context) {
         context.fillStyle = 'black';
         if (this.flipped) context.fillStyle = 'blue';
 	    context.fillRect(this.x, this.y, this.width, this.width);
