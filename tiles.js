@@ -1,23 +1,22 @@
 //artists for tiles
 var Tile = function (x, y){
-    
     this.x = x;
     this.y = y;
-    this.width = 200;
+    this.width = SIZE;
+    this.flipped = false;
+    this.padding = 2;
 };
 
 Tile.prototype = {
-    drawDown: function(context){
-	//var img = this.darken ? this.dimg : this.img;
+    draw: function (context) {
+        // Setup
+        context.save();
+        context.globalAlpha = .6;
+        context.fillStyle = 'black';
+        if (this.flipped) context.fillStyle = 'blue';
 
-	context.strokeStyle = 'black';                                                                                                                            
-	context.strokeRect(this.x, this.y, this.width, this.width);
-
-    },
-    
-    drawUp: function(context){
-	
-	context.strokeStyle = 'blue';                                                                                                                            
-	context.strokeRect(this.x, this.y, this.width, this.width);
+        // Drawing
+	    context.fillRect(this.x+this.padding, this.y+this.padding, this.width-2*this.padding, this.width-2*this.padding);
+        context.restore();
     }
 };
