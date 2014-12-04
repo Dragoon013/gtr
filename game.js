@@ -54,6 +54,9 @@ var game = (function(){
 	        x -= canvas.offsetLeft;
             y -= canvas.offsetTop;
 
+            // Snap x,y to grid corners where a tile's x,y will be
+	        var rx = Math.floor(x / SIZE) * SIZE;
+	        var ry = Math.floor(y / SIZE) * SIZE;
 
 	}
     }
