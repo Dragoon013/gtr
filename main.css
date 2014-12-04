@@ -2,6 +2,7 @@ body {
     font-family: Courier;
     background: url("/images/rocket_clouds1.png");
     background-size: cover;
+    background-position: center center;
 }
 
 #header {

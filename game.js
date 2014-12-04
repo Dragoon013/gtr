@@ -82,6 +82,7 @@ var game = (function(){
 
         // Draw all tiles
 	    draw: function(){
+            context.clearRect(0, 0, BOARD_W, BOARD_H);
 	        for (var i = 0; i < tiles.length; i++){
 		        tiles[i].draw(context);
 	        }
