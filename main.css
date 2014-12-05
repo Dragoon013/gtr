@@ -8,6 +8,19 @@ body {
 
 #header {
     width: 100%;
+ 
+}
+
+#rbutton {
+    top: 30px;
+    position: relative;
+    margin-left: 500px;;
+    text-align: center:
+    
+}
+
+#nextb{
+    margin-left: 441px;
 }
 
 #score {
