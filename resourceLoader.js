@@ -42,6 +42,7 @@ var rm = (function(){
 			var img = new Image();
 			var filter = resources[i].filter;
                         img.src = resources[i].filePath;
+			img.name = resources[i].name;
                         img.addEventListener('load', function() {
                             if (filter) {
 				img.src = filter(img);

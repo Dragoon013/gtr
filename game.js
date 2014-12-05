@@ -101,21 +101,20 @@ var game = (function(){
 		game.draw();
 	    },
 
-	    template_mapper: function(template){
-		console.log(template);    
-	//	for(var k = 0; k < rm.im.length;i++){
-	        
-		    for (var i = 0; i < template.length; i++){
-			for (var j = 0; j < template[i].length; j++){
-		            tiles.push(new Tile(i * SIZE, j * SIZE));
+
+	    template_mapper: function(){
 	
-			    //pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.im[k].name,SIZE,SIZE)));            
+
+
+	        var num = Math.floor(Math.random() *10)%rm.im.length;
+
+		    for (var i = 0; i < BOARD.length; i++){
+			for (var j = 0; j < BOARD.length; j++){
+		            tiles.push(new Tile(i * SIZE, j * SIZE));
+			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[num].name],SIZE,SIZE)));            
 //			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
-			}
-			
+			}	
 	            }
-	//	}
-		
 	    },
 
         // Draw all tiles
