@@ -12,6 +12,8 @@ var rm = (function(){
 	    IMAGE:0,
             SOUND:1,
         },
+	
+	im: [],
         images: {},
         sounds: {},
 
@@ -50,8 +52,8 @@ var rm = (function(){
                                 rm.onResourceLoaded();
                             }
                         }, false);
-
-                                rm.images[resources[i].name] = img
+			rm.im[i] = img;
+                        rm.images[resources[i].name] = img;
                     })();
 
 

@@ -32,7 +32,6 @@ Pix.prototype = {
     draw: function (sprite,context){
 	context.globalAlpha = 0
 	if (this.show) context.globalAlpha = 1;
-	//console.log(this);
 	context.drawImage(this.img,
 			  sprite.x,sprite.y, 
 			  this.w, this.h, 
