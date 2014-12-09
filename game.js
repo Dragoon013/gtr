@@ -7,10 +7,19 @@ var HEIGHT;
 var BOARD_W;
 var BOARD_H;
 
+//game states
+var START = 100;
+var PLAYING = 101;
+var RESTART = 102;
+var END = 103;
+var state = START;
+
+//arrays for objects
 var allphotos = [];
 var tiles = [];
 var pix = [];
 
+//default board for now - maybe can add larger ones later
 var BOARD = [[1,2,3],
 	     [4,5,6],
 	     [7,8,9]];
@@ -26,16 +35,7 @@ var game = (function(){
 
     var restart = document.getElementById('restartb');
     var next = document.getElementById('nextb');
-/*
-    restart.onclick() = function(){
-	
 
-    }
-    next.onclick() = function(){
-
-
-    }
-*/
 
     WIDTH = game_canvas.width;
     HEIGHT = game_canvas.height;
@@ -59,16 +59,44 @@ var game = (function(){
 		rm.addResource("tato", "/images/Photos/Tato.jpg", "jpg", rm.ResourceType.IMAGE);
 		
 		rm.startPreloading();
+		
 	        canvas.addEventListener('click',function(e){
-		        game.click(e);
+		    game.clickCanvas(e);
 	        });
+	        restart.addEventListener('click',function(e){
+		    game.clickRestart(e);
+	        });
+		next.addEventListener('click',function(e){
+		    game.clickNext(e);
+	        });
+		
+		
 	        game.template_mapper(BOARD);
 	        
 		game.draw();
+		state = PLAYING;
 
 	    },
+	
+	clickRestart: function(e){
+	    state = RESTART;
+	    tiles =[];
+	    pix = [];
+	    game.draw();
+	    allphotos = [];
+	    state = PLAYING;
+	    game.init();
+	    
+	},
+	
+	clickNext: function(e){
 
-	    click: function(e){
+	    
+
+	},
+
+
+	    clickCanvas: function(e){
 		var x = e.x;
 		var y = e.y;
 		
@@ -103,23 +131,28 @@ var game = (function(){
 
 
 	    template_mapper: function(){
-	
-
-
+		
 	        var num = Math.floor(Math.random() *10)%rm.im.length;
-
+		
+		for (var k = 0; k < rm.im.length; k++){
 		    for (var i = 0; i < BOARD.length; i++){
 			for (var j = 0; j < BOARD.length; j++){
 		            tiles.push(new Tile(i * SIZE, j * SIZE));
-			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[num].name],SIZE,SIZE)));            
+			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[k].name],SIZE,SIZE)));            
 //			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
 			}	
 	            }
+		    allphotos.push(pix);
+		    pix = [];
+		}
+//		console.log(allphotos);
 	    },
 
         // Draw all tiles
 	    draw: function(){
+		
 		context.clearRect(0, 0, BOARD_W, BOARD_H);
+		pix = allphotos[1];
 		pix.map(function(p){p.artist.draw(p,context)});
 		
 
@@ -127,13 +160,10 @@ var game = (function(){
 		        tiles[i].draw(context);
 	        }
 
-	    },
-	
-	drawpic: function(section){
-	    
-	    section.artist.draw(section,context);    
-	    
-	}
+		if(state === RESTART)
+		    context.clearRect(0, 0, canvas.width,canvas.height);
+		
+	    }
     }
 })();
 

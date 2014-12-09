@@ -12,15 +12,17 @@ body {
 }
 
 #rbutton {
-    top: 30px;
-    position: relative;
-    margin-left: 484px;;
-    text-align: center:
-    
+
+    width: 100%;
+    text-align: center;
+}
+
+#restartb{
+
 }
 
 #nextb{
-    margin-left: 472px;
+
 }
 
 #score {
