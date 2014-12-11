@@ -12,6 +12,8 @@ var rm = (function(){
 	    IMAGE:0,
             SOUND:1,
         },
+	
+	im: [],
         images: {},
         sounds: {},
 
@@ -40,6 +42,7 @@ var rm = (function(){
 			var img = new Image();
 			var filter = resources[i].filter;
                         img.src = resources[i].filePath;
+			img.name = resources[i].name;
                         img.addEventListener('load', function() {
                             if (filter) {
 				img.src = filter(img);
@@ -50,8 +53,8 @@ var rm = (function(){
                                 rm.onResourceLoaded();
                             }
                         }, false);
-
-                                rm.images[resources[i].name] = img
+			rm.im[i] = img;
+                        rm.images[resources[i].name] = img;
                     })();
 
 

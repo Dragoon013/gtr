@@ -8,6 +8,21 @@ body {
 
 #header {
     width: 100%;
+ 
+}
+
+#rbutton {
+
+    width: 100%;
+    text-align: center;
+}
+
+#restartb{
+
+}
+
+#nextb{
+
 }
 
 #score {
