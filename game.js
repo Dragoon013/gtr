@@ -18,6 +18,9 @@ var state = START;
 var allphotos = [];
 var tiles = [];
 var pix = [];
+var pixleft = [];
+
+var randNum;
 
 //default board for now - maybe can add larger ones later
 var BOARD = [[1,2,3],
@@ -25,10 +28,7 @@ var BOARD = [[1,2,3],
 	     [7,8,9]];
 
 var game = (function(){
-    var tiles = [];
-    var gameTiles = [];
-    var picTiles = [];
-
+    
     var gameArea = document.getElementById('gameArea');
     var canvas = document.getElementById('game_canvas');
     var score = document.getElementById('score');
@@ -46,7 +46,8 @@ var game = (function(){
 
     return{
 	    init: function(){
-
+		
+		randNum = 0;
 		rm.init();
 		//add to images dictionary.
 		rm.addResource("yel", "/images/Photos/Yel.jpg", "jpg", rm.ResourceType.IMAGE);
@@ -70,36 +71,50 @@ var game = (function(){
 		    game.clickNext(e);
 	        });
 		
-		
 	        game.template_mapper(BOARD);
 	        
+		game.randomGen();
+
 		game.draw();
+		
 		state = PLAYING;
 
 	    },
+	
+	randomGen: function(){
+	    var random = Math.random();
+	
+	    randNum = Math.floor(random*10) % (pixleft.length);
+	},
 	
 	clickRestart: function(e){
 	    state = RESTART;
 	    tiles =[];
 	    pix = [];
-	    game.draw();
 	    allphotos = [];
-	    state = PLAYING;
 	    game.init();
 	    
 	},
+
+	flippedFalse: function(){
+	    for (var i = 0; i < tiles.length; i++){
+		tiles[i].flipped = false;
+	    }
+	},
 	
 	clickNext: function(e){
-
-	    
+	    pixleft.splice(randNum,1);
+	    state = PLAYING;
+	    game.flippedFalse();
+	    game.randomGen();	    
+	    game.draw();
 
 	},
-
-
-	    clickCanvas: function(e){
-		var x = e.x;
-		var y = e.y;
-		
+	
+	clickCanvas: function(e){
+	    var x = e.x;
+	    var y = e.y;
+	    
             // Firefox
             if (!x || !y) {
                 var x = e.clientX + document.body.scrollLeft +
@@ -107,63 +122,59 @@ var game = (function(){
                 var y = e.clientY + document.body.scrollTop +
                     document.documentElement.scrollTop;
             }
-		// Align x,y with the canvas
-	        x -= canvas.offsetLeft;
-		y -= canvas.offsetTop;
-
+	    // Align x,y with the canvas
+	    x -= canvas.offsetLeft;
+	    y -= canvas.offsetTop;
+	    
             // Snap x,y to grid corners where a tile's x,y will be
-	        var rx = Math.floor(x / SIZE) * SIZE;
-	        var ry = Math.floor(y / SIZE) * SIZE;
-		
-		// Find the tile we just clicked and flip it
-		// this here is pretty
-		tiles.map(function(t) {
-                    if (t.x === rx && t.y === ry)
-			t.flipped = true; 
-		});
-		pix.map(function(p) {
-                    if (p.x === rx && p.y === ry)
-            		p.artist.show = true; 
-		});
-		// Redraw game board
-		game.draw();
-	    },
-
-
-	    template_mapper: function(){
-		
-	        var num = Math.floor(Math.random() *10)%rm.im.length;
-		
-		for (var k = 0; k < rm.im.length; k++){
-		    for (var i = 0; i < BOARD.length; i++){
-			for (var j = 0; j < BOARD.length; j++){
-		            tiles.push(new Tile(i * SIZE, j * SIZE));
-			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[k].name],SIZE,SIZE)));            
-//			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
-			}	
-	            }
-		    allphotos.push(pix);
-		    pix = [];
-		}
-//		console.log(allphotos);
-	    },
+	    var rx = Math.floor(x / SIZE) * SIZE;
+	    var ry = Math.floor(y / SIZE) * SIZE;
+	    
+	    // Find the tile we just clicked and flip it
+	    // this here is pretty
+	    tiles.map(function(t) {
+                if (t.x === rx && t.y === ry)
+		    t.flipped = true; 
+	    });
+	    pix.map(function(p) {
+                if (p.x === rx && p.y === ry)
+            	    p.artist.show = true; 
+	    });
+	    // Redraw game board
+	    game.draw();
+	},
+	
+	
+	template_mapper: function(){
+	    
+	    var num = Math.floor(Math.random() *10)%rm.im.length;
+	    
+	    for (var k = 0; k < rm.im.length; k++){
+		for (var i = 0; i < BOARD.length; i++){
+		    for (var j = 0; j < BOARD.length; j++){
+		        tiles.push(new Tile(i * SIZE, j * SIZE, BOARD[k][i]));
+			pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[k].name],SIZE,SIZE)));            
+			//			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
+		    }	
+	        }
+		allphotos.push(pix);
+		pix = [];
+	    }
+	    pixleft = allphotos;
+	    //		console.log(allphotos);
+	},
 
         // Draw all tiles
-	    draw: function(){
-		
-		context.clearRect(0, 0, BOARD_W, BOARD_H);
-		pix = allphotos[1];
-		pix.map(function(p){p.artist.draw(p,context)});
-		
-
-	        for (var i = 0; i < tiles.length; i++){
-		        tiles[i].draw(context);
-	        }
-
-		if(state === RESTART)
-		    context.clearRect(0, 0, canvas.width,canvas.height);
-		
+	draw: function(){
+	    
+	    context.clearRect(0, 0, BOARD_W, BOARD_H);
+	    pix = pixleft[randNum];
+	    pix.map(function(p){p.artist.draw(p,context)});	    
+	    
+	    for (var i = 0; i < tiles.length; i++){
+		tiles[i].draw(context);
 	    }
+	}
     }
 })();
 

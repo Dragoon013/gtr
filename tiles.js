@@ -1,20 +1,21 @@
 //artists for tiles
-var Tile = function (x, y){
+var Tile = function (x, y, number){
     this.x = x;
     this.y = y;
     this.width = SIZE;
     this.flipped = false;
     this.padding = 1;
+    this.number = number;
 };
 
 Tile.prototype = {
     draw: function (context) {
         // Setup
         context.save();
-        //console.log(context);
 	context.fillStyle = 'black';
-        context.globalAlpha = .6;
-        if (this.flipped) context.globalAlpha = 0;
+        context.globalAlpha = .2;
+	
+	if (this.flipped) context.globalAlpha = 0;
         // Drawing
 //	context.fillRect(this.x+this.padding, this.y+this.padding, this.width-1*this.padding, this.width-1*this.padding);
 	context.fillRect(this.x, this.y,this.width, this.width);
