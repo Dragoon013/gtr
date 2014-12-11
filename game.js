@@ -152,7 +152,8 @@ var game = (function(){
 	    for (var k = 0; k < rm.im.length; k++){
 		for (var i = 0; i < BOARD.length; i++){
 		    for (var j = 0; j < BOARD.length; j++){
-		        tiles.push(new Tile(i * SIZE, j * SIZE, BOARD[k][i]));
+			console.log(BOARD);
+		        tiles.push(new Tile(i * SIZE, j * SIZE, BOARD[i][j]));
 			pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[k].name],SIZE,SIZE)));            
 			//			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
 		    }	
