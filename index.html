@@ -14,12 +14,19 @@
 	<button id="restartb" type="button">Restart</button>
 	<button id="nextb" type="button">Next</button>
     </div>
-    <div id="gameArea">     
-      <canvas id="game_canvas" width='600' height='700'>
-	Your Browser does not support canvas.
-	
-      </canvas>
-    </div>
+    
+    <a>
+      <div id="gameArea">     
+	<canvas id="game_canvas" width='600' height='700'>
+	  Your Browser does not support canvas.
+	</canvas>
+      <form id="form1" action="form_action.asp">
+	Guess the Rocketeer: <input type="text" name="Guess" ><br>
+	<input id="submit" type="submit" value="Submit">
+      </form>
+
+      </div>
+    </a>
 
     <script src='resourceLoader.js'></script>
     <script src='tiles.js'></script>

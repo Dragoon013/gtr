@@ -33,6 +33,8 @@ var game = (function(){
     var canvas = document.getElementById('game_canvas');
     var score = document.getElementById('score');
 
+    var sumbit = document.getElementById("submit");
+    var form = document.getElementById("form1");
     var restart = document.getElementById('restartb');
     var next = document.getElementById('nextb');
 
@@ -60,7 +62,9 @@ var game = (function(){
 		rm.addResource("tato", "/images/Photos/Tato.jpg", "jpg", rm.ResourceType.IMAGE);
 		
 		rm.startPreloading();
-		
+		console.log(submit);
+		submit.onclick = game.checkGuess;
+	
 	        canvas.addEventListener('click',function(e){
 		    game.clickCanvas(e);
 	        });
@@ -111,6 +115,14 @@ var game = (function(){
 
 	},
 	
+	checkGuess: function(){
+	    
+	    var guess = form.elements[0];
+	    console.log(guess);
+	    
+
+	},
+
 	clickCanvas: function(e){
 	    var x = e.x;
 	    var y = e.y;
@@ -152,7 +164,7 @@ var game = (function(){
 	    for (var k = 0; k < rm.im.length; k++){
 		for (var i = 0; i < BOARD.length; i++){
 		    for (var j = 0; j < BOARD.length; j++){
-			console.log(BOARD);
+
 		        tiles.push(new Tile(i * SIZE, j * SIZE, BOARD[i][j]));
 			pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[k].name],SIZE,SIZE)));            
 			//			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
