@@ -141,9 +141,10 @@ var game = (function(){
 		
 		var count = 0;
 		for (var k = 0; k < tiles.length; k++){
-		    if (tiles[k].flipped === false) count++;
+		    if (tiles[k].flipped === false) 
+			count++;
 		}
-		score = count;
+		score += count;
 		$('#points').html("Points: " + score);
 		i++;	
 	    }
