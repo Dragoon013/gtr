@@ -31,13 +31,14 @@ var game = (function(){
     
     var gameArea = document.getElementById('gameArea');
     var canvas = document.getElementById('game_canvas');
-    var score = document.getElementById('score');
+    var score = 0;
 
     var sumbit = document.getElementById("submit");
-    var form = document.getElementById("form1");
+    var inputbox = document.getElementById("inputbox");
+
     var restart = document.getElementById('restartb');
     var next = document.getElementById('nextb');
-
+    var adder =0;
 
     WIDTH = game_canvas.width;
     HEIGHT = game_canvas.height;
@@ -48,7 +49,6 @@ var game = (function(){
 
     return{
 	    init: function(){
-		
 		randNum = 0;
 		rm.init();
 		//add to images dictionary.
@@ -62,19 +62,22 @@ var game = (function(){
 		rm.addResource("tato", "/images/Photos/Tato.jpg", "jpg", rm.ResourceType.IMAGE);
 		
 		rm.startPreloading();
-		console.log(submit);
-		submit.onclick = game.checkGuess;
-	
-	        canvas.addEventListener('click',function(e){
-		    game.clickCanvas(e);
-	        });
-	        restart.addEventListener('click',function(e){
-		    game.clickRestart(e);
-	        });
-		next.addEventListener('click',function(e){
-		    game.clickNext(e);
-	        });
 		
+		//just need to set up eventlisteners once
+		if (state === START){
+	            canvas.addEventListener('click',function(e){
+			game.clickCanvas(e);
+	            });
+	            restart.addEventListener('click',function(e){
+			game.clickRestart(e);
+	            });
+		    next.addEventListener('click',function(e){
+			game.clickNext(e);
+	            });
+		    submit.addEventListener('click',function(e){
+			game.parser(e);
+	            });
+		}
 	        game.template_mapper(BOARD);
 	        
 		game.randomGen();
@@ -87,20 +90,23 @@ var game = (function(){
 	
 	randomGen: function(){
 	    var random = Math.random();
-	
+	    
 	    randNum = Math.floor(random*10) % (pixleft.length);
 	},
 	
 	clickRestart: function(e){
 	    state = RESTART;
 	    tiles =[];
+	    score = 0;
+	    $('input:text').val("");
+	    $('#points').html("Points: " + score);
 	    pix = [];
 	    allphotos = [];
 	    game.init();
 	    
 	},
 
-	flippedFalse: function(){
+	setFlippedFalse: function(){
 	    for (var i = 0; i < tiles.length; i++){
 		tiles[i].flipped = false;
 	    }
@@ -109,18 +115,39 @@ var game = (function(){
 	clickNext: function(e){
 	    pixleft.splice(randNum,1);
 	    state = PLAYING;
-	    game.flippedFalse();
+	    $('input:text').val("");
+	    game.setFlippedFalse();
 	    game.randomGen();	    
 	    game.draw();
 
 	},
-	
-	checkGuess: function(){
-	    
-	    var guess = form.elements[0];
-	    console.log(guess);
-	    
 
+	parser: function(e){
+	    var word = $('input:text').val();
+	    word.toLowerCase();
+	    var wordArray = word.split(' ');
+	    game.checkGuess(wordArray);
+	},
+	
+	checkGuess: function(array){
+
+
+	    var ans = pix[0].artist.img.name;
+	    var i = 0;
+	    
+	    while(array[i] === ans){	
+		//do points
+		alert('Correct! Hit next for the next challenge');
+		
+		var count = 0;
+		for (var k = 0; k < tiles.length; k++){
+		    if (tiles[k].flipped === false) count++;
+		}
+		score = count;
+		$('#points').html("Points: " + score);
+		i++;	
+	    }
+	    
 	},
 
 	clickCanvas: function(e){
@@ -164,8 +191,9 @@ var game = (function(){
 	    for (var k = 0; k < rm.im.length; k++){
 		for (var i = 0; i < BOARD.length; i++){
 		    for (var j = 0; j < BOARD.length; j++){
-
-		        tiles.push(new Tile(i * SIZE, j * SIZE, BOARD[i][j]));
+			if(k===0){
+		            tiles.push(new Tile(i * SIZE, j * SIZE, BOARD[i][j]));
+			}
 			pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images[rm.im[k].name],SIZE,SIZE)));            
 			//			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
 		    }	

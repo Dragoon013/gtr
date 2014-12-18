@@ -13,7 +13,7 @@ Tile.prototype = {
         // Setup
         context.save();
 	context.fillStyle = 'black';
-        context.globalAlpha = .2;
+        context.globalAlpha = .4;
 	
 	if (this.flipped) context.globalAlpha = 0;
         // Drawing

@@ -3,11 +3,13 @@
   <head>
     <title>Guess the Rocketeer</title>
     <!--favicon goes here eventually-->
+    <script type="text/javascript" src="jquery-1.11.1.js"></script>
     <link rel='stylesheet' href='main.css'>
+    
   </head>
   <body>
     <div id="header">
-      <h3 id="score">Score: 0</h3>
+      <h3 id="points">Points: 0</h3>
       
     </div>
     <div id="rbutton">
@@ -20,14 +22,14 @@
 	<canvas id="game_canvas" width='600' height='700'>
 	  Your Browser does not support canvas.
 	</canvas>
-      <form id="form1" action="form_action.asp">
-	Guess the Rocketeer: <input type="text" name="Guess" ><br>
-	<input id="submit" type="submit" value="Submit">
-      </form>
+	<div id="textbox">
+	Guess the Rocketeer: <input type="text" name="Guess" value="" ></input>
+	<button id="submit">Submit</button>
+      </div>
 
       </div>
     </a>
-
+    
     <script src='resourceLoader.js'></script>
     <script src='tiles.js'></script>
     <script src='game.js'></script>
