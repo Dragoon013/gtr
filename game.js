@@ -52,14 +52,14 @@ var game = (function(){
 		randNum = 0;
 		rm.init();
 		//add to images dictionary.
-		rm.addResource("yel", "/images/Photos/Yel.jpg", "jpg", rm.ResourceType.IMAGE);
-		rm.addResource("vaultboy", "/images/vaultboy.png", "png", rm.ResourceType.IMAGE);
-		rm.addResource("joaquin", "/images/Photos/Joaquin.jpg", "jpg", rm.ResourceType.IMAGE);
-		rm.addResource("peter", "/images/Photos/PeterKo.jpg", "jpg", rm.ResourceType.IMAGE);
-		rm.addResource("kendall", "/images/Photos/Kendall.jpg", "jpg", rm.ResourceType.IMAGE);
-		rm.addResource("jesse", "/images/Photos/Jesse.jpg", "jpg", rm.ResourceType.IMAGE);
-		rm.addResource("rob", "/images/Photos/Rob.jpg", "jpg", rm.ResourceType.IMAGE);
-		rm.addResource("tato", "/images/Photos/Tato.jpg", "jpg", rm.ResourceType.IMAGE);
+		rm.addResource("yel", "images/Photos/Yel.jpg", "jpg", rm.ResourceType.IMAGE);
+		rm.addResource("vaultboy", "images/vaultboy.png", "png", rm.ResourceType.IMAGE);
+		rm.addResource("joaquin", "images/Photos/Joaquin.jpg", "jpg", rm.ResourceType.IMAGE);
+		rm.addResource("peter", "images/Photos/PeterKo.jpg", "jpg", rm.ResourceType.IMAGE);
+		rm.addResource("kendall", "images/Photos/Kendall.jpg", "jpg", rm.ResourceType.IMAGE);
+		rm.addResource("jesse", "images/Photos/Jesse.jpg", "jpg", rm.ResourceType.IMAGE);
+		rm.addResource("rob", "images/Photos/Rob.jpg", "jpg", rm.ResourceType.IMAGE);
+		rm.addResource("tato", "images/Photos/Tato.jpg", "jpg", rm.ResourceType.IMAGE);
 		
 		rm.startPreloading();
 		
