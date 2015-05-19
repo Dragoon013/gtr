@@ -117,7 +117,17 @@ var game = (function(){
 	    state = PLAYING;
 	    $('input:text').val("");
 	    game.setFlippedFalse();
+	    
+	    console.log(pixleft);
+	    console.log(allphotos);
+	    console.log(pix);
+
+	    if (pixleft.length === 0){
+		
+		pixleft = allphotos;
+	    }
 	    game.randomGen();	    
+	    
 	    game.draw();
 
 	},
@@ -138,7 +148,7 @@ var game = (function(){
 	    while(array[i] === ans){	
 		//do points
 		alert('Correct! Hit next for the next challenge');
-		
+		game.clickNext();
 		var count = 0;
 		for (var k = 0; k < tiles.length; k++){
 		    if (tiles[k].flipped === false) 
@@ -148,7 +158,6 @@ var game = (function(){
 		$('#points').html("Points: " + score);
 		i++;	
 	    }
-	    
 	},
 
 	clickCanvas: function(e){
@@ -199,10 +208,10 @@ var game = (function(){
 			//			    pix.push(new Sprite('picture', i*SIZE, j*SIZE, new Pix(rm.images["yel"],SIZE,SIZE)));            
 		    }	
 	        }
-		allphotos.push(pix);
+		pixleft.push(pix);
 		pix = [];
 	    }
-	    pixleft = allphotos;
+	    allphotos = pixleft;
 	    //		console.log(allphotos);
 	},
 
