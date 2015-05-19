@@ -134,7 +134,9 @@ var game = (function(){
 
 	parser: function(e){
 	    var word = $('input:text').val();
-	    word.toLowerCase();
+	    console.log(word);
+	    word = word.toLowerCase();
+	    console.log(word);
 	    var wordArray = word.split(' ');
 	    game.checkGuess(wordArray);
 	},
@@ -147,7 +149,7 @@ var game = (function(){
 	    
 	    while(array[i] === ans){	
 		//do points
-		alert('Correct! Hit next for the next challenge');
+		alert('Correct! On to the next challenge!');
 		game.clickNext();
 		var count = 0;
 		for (var k = 0; k < tiles.length; k++){
