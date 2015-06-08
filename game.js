@@ -36,6 +36,8 @@ var game = (function(){
     var sumbit = document.getElementById("submit");
     var inputbox = document.getElementById("inputbox");
 
+    var err_count = 0;
+
     var restart = document.getElementById('restartb');
     var next = document.getElementById('nextb');
     var adder =0;
@@ -78,7 +80,15 @@ var game = (function(){
 			game.parser(e);
 	            });
 		}
-	        game.template_mapper(BOARD);
+		
+		//errors for fun!
+		//this won't work. need a database or server to keep the count. then report back here. for now, just have it do on the first click as a one off and the 5th click regularly
+		/*var err = new Error("Error Detected");
+		//NREUM.noticeError(err);
+		err_count++;
+		if (err_count%5 === 0) throw err;
+		*/
+		game.template_mapper(BOARD);
 	        
 		game.randomGen();
 
@@ -163,16 +173,35 @@ var game = (function(){
 	},
 
 	clickCanvas: function(e){
-	    var x = e.x;
-	    var y = e.y;
+	//   var x,y; 
+	    //standard coordinates
+//		try{
+		    
+//		    x = e.x;
+//		    y = e.y;
+//		    if (x == undefined) throw new Error("FIREFOX DETECTED. CHANGE COORDINATE REPORTING");
+		    //coordinates for firefox
+//		    if (!x || !y) {
+
+//apparently this junk below works on chrome and firefox. Because Chrome is good like that
+	    var err = new Error("Error Detected");
+	    //NREUM.noticeError(err);
+
+	    err_count++;
+	    if (err_count%5 === 0 || (err_count - 1) === 0) throw err;
+
+	    var x = e.clientX + document.body.scrollLeft +
+		document.documentElement.scrollLeft;
+	    var y = e.clientY + document.body.scrollTop +
+		document.documentElement.scrollTop;
+//		    }
+//		}catch(err){
+//		    console.error(err);
+//		}
 	    
-            // Firefox
-            if (!x || !y) {
-                var x = e.clientX + document.body.scrollLeft +
-                    document.documentElement.scrollLeft;
-                var y = e.clientY + document.body.scrollTop +
-                    document.documentElement.scrollTop;
-            }
+		
+		
+	    
 	    // Align x,y with the canvas
 	    x -= canvas.offsetLeft;
 	    y -= canvas.offsetTop;
