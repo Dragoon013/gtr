@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guess the Rocketeer</title>
+    <!--favicon goes here eventually-->
+    <link rel="shortcut icon" href="../static/images/rocket.ico" />
+    <script type="text/javascript" src="../static/js/jquery-1.11.1.js"></script>
+    <link rel='stylesheet' href='../static/css/main.css'>
+
+  </head>
+  <body>
+    <div id="header">
+      <h3 id="points">Points: 0</h3>
+      
+    </div>
+    <div id="rbutton">
+	<button id="restartb" type="button">Restart</button>
+	<button id="nextb" type="button">Next</button>
+    </div>
+    
+    <a>
+      <div id="gameArea">     
+	<canvas id="game_canvas" width='600' height='700'>
+	  Your Browser does not support canvas.
+	</canvas>
+	<div id="textbox">
+	Guess the Rocketeer: <input type="text" name="Guess" value="" ></input>
+	<button id="submit">Submit</button>
+      </div>
+
+      </div>
+    </a>
+    
+    <script src='../static/js/resourceLoader.js'></script>
+    <script src='../static/js/tiles.js'></script>
+    <script src='../static/js/game.js'></script>
+
+  </body>
+</html>
